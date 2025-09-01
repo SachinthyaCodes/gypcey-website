@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeTab, setActiveTab] = useState('seasons');
   
   const heroImages = [
     "/images/hero-image-1.jpg",
@@ -121,32 +122,156 @@ export default function Home() {
 
       {/* Travel Options Section */}
       <section className="w-full px-4 py-6 flex flex-col items-center">
-        <h2 className="text-blue-900 font-bold text-center text-base mb-2">WHERE WILL THE WIND TAKE YOU? CHOOSE BY SEASON, STYLE, OR GO FREESTYLE</h2>
-        <div className="flex flex-wrap justify-center gap-4 mt-2">
-          {/* Example travel options */}
-          <div className="flex flex-col items-center">
-            <Image src="/season1.svg" alt="South West Season" width={40} height={40} />
-            <span className="text-xs mt-1">South West Season</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <Image src="/season2.svg" alt="East Season" width={40} height={40} />
-            <span className="text-xs mt-1">East Season</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <Image src="/season3.svg" alt="Special Escape" width={40} height={40} />
-            <span className="text-xs mt-1">Special Escape</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <Image src="/season4.svg" alt="Offbeat" width={40} height={40} />
-            <span className="text-xs mt-1">Offbeat</span>
-          </div>
+        <h2 className="text-blue-900 font-bold text-center text-base mb-4">WHERE WILL THE WIND TAKE YOU? CHOOSE BY SEASON, STYLE, OR GO FREESTYLE</h2>
+        
+        {/* Tab Navigation */}
+        <div className="flex justify-center gap-8 mb-6">
+          <button 
+            onClick={() => setActiveTab('seasons')}
+            className={`font-medium text-sm pb-1 transition-colors ${
+              activeTab === 'seasons' 
+                ? 'text-blue-600 border-b-2 border-blue-600' 
+                : 'text-gray-500 hover:text-blue-600'
+            }`}
+          >
+            Seasons
+          </button>
+          <button 
+            onClick={() => setActiveTab('travel-mode')}
+            className={`font-medium text-sm pb-1 transition-colors ${
+              activeTab === 'travel-mode' 
+                ? 'text-blue-600 border-b-2 border-blue-600' 
+                : 'text-gray-500 hover:text-blue-600'
+            }`}
+          >
+            Travel Mode
+          </button>
+          <button 
+            onClick={() => setActiveTab('free-style')}
+            className={`font-medium text-sm pb-1 transition-colors ${
+              activeTab === 'free-style' 
+                ? 'text-blue-600 border-b-2 border-blue-600' 
+                : 'text-gray-500 hover:text-blue-600'
+            }`}
+          >
+            Free Style
+          </button>
         </div>
+
+        {/* Tab Content */}
+        {activeTab === 'seasons' && (
+          <div className="flex flex-wrap justify-center gap-8 mt-2">
+            {/* Sri Lanka travel options */}
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/sri-lanka 1.png" alt="South-West Season" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>South-West Season</div>
+                <div>(November-March)</div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/sri-lanka 2.png" alt="East Season" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>East Season</div>
+                <div>(April-October)</div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/sri-lanka 3.png" alt="Year-Round" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>Year-Round</div>
+                <div>(Perfect Anytime)</div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/sri-lanka 4.png" alt="Special Escapes" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>Special Escapes</div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/sri-lanka 5.png" alt="Offbeat" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>Offbeat</div>
+                <div>(Hidden Gems)</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'travel-mode' && (
+          <div className="flex flex-wrap justify-center gap-8 mt-2">
+            {/* Travel Mode options */}
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/Free-Spirit.png" alt="Free-Spirit" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>Free-Spirit</div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/Adrenaline.png" alt="Adrenaline" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>Adrenaline</div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/Barefoot-Luxe.png" alt="Barefoot-Luxe" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>Barefoot-Luxe</div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/Soulful.png" alt="Soulful" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>Soulful</div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
+              <Image src="/images/Retreat.png" alt="Retreat" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                <div>Retreat</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'free-style' && (
+          <div className="flex flex-col items-center max-w-md mx-auto px-4">
+            {/* Free Style Content */}
+            <h3 className="text-lg font-bold mb-4 text-center" style={{ 
+              fontFamily: 'Roboto, Arial, sans-serif',
+              color: '#e67e22'
+            }}>
+              Wander Your Way – Your Adventure, Your Rules!
+            </h3>
+            
+            <p className="text-sm text-gray-700 text-center mb-6 leading-relaxed" style={{ 
+              fontFamily: 'Roboto, Arial, sans-serif'
+            }}>
+              Dreaming of the perfect escape? Make it surf, safari, culture, or a bit of everything—tell us what moves you, and we'll craft a journey that's uniquely yours
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm" style={{ 
+                fontFamily: 'Roboto, Arial, sans-serif'
+              }}>
+                Whats app Now
+              </button>
+              
+              <button className="flex-1 bg-transparent border-2 border-orange-500 text-orange-500 hover:bg-orange-50 font-medium py-2 px-4 rounded-md transition-colors text-sm" style={{ 
+                fontFamily: 'Roboto, Arial, sans-serif'
+              }}>
+                Email Us
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Surfing Section */}
       <section className="w-full px-4 py-6 flex flex-col items-center">
         <div className="w-full rounded-lg overflow-hidden shadow-md mb-2">
-          <Image src="/surfing.jpg" alt="Surfing" width={400} height={200} className="w-full h-auto object-cover" />
+          <Image src="/images/sri-lanka-1.jpg" alt="Surfing in Sri Lanka" width={400} height={200} className="w-full h-auto object-cover" />
         </div>
         <div className="text-blue-900 font-bold text-center">Surfing</div>
         <div className="text-xs text-center text-gray-600">Learn from a sensory dummy text of the printing and typesetting industry.</div>
@@ -161,13 +286,13 @@ export default function Home() {
       <section className="w-full px-4 py-6 flex flex-col items-center">
         <h2 className="text-blue-900 font-bold text-center text-base mb-2">Surfing On World Best, Untouched Beaches</h2>
         <div className="grid grid-cols-3 gap-2 w-full max-w-md">
-          {/* Example images */}
-          <Image src="/beach1.jpg" alt="Beach 1" width={100} height={100} className="rounded-md" />
-          <Image src="/beach2.jpg" alt="Beach 2" width={100} height={100} className="rounded-md" />
-          <Image src="/beach3.jpg" alt="Beach 3" width={100} height={100} className="rounded-md" />
-          <Image src="/beach4.jpg" alt="Beach 4" width={100} height={100} className="rounded-md" />
-          <Image src="/beach5.jpg" alt="Beach 5" width={100} height={100} className="rounded-md" />
-          <Image src="/beach6.jpg" alt="Beach 6" width={100} height={100} className="rounded-md" />
+          {/* Sri Lanka surfing images */}
+          <Image src="/images/sri-lanka-2.jpg" alt="Sri Lanka Beach 2" width={100} height={100} className="rounded-md object-cover" />
+          <Image src="/images/sri-lanka-3.jpg" alt="Sri Lanka Beach 3" width={100} height={100} className="rounded-md object-cover" />
+          <Image src="/images/sri-lanka-4.jpg" alt="Sri Lanka Beach 4" width={100} height={100} className="rounded-md object-cover" />
+          <Image src="/images/sri-lanka-5.jpg" alt="Sri Lanka Beach 5" width={100} height={100} className="rounded-md object-cover" />
+          <Image src="/images/sri-lanka-1.jpg" alt="Sri Lanka Beach 1" width={100} height={100} className="rounded-md object-cover" />
+          <Image src="/images/sri-lanka-2.jpg" alt="Sri Lanka Beach 2" width={100} height={100} className="rounded-md object-cover" />
         </div>
       </section>
 
