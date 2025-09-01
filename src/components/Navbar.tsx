@@ -16,7 +16,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2">
-          <Image src="/logo.svg" alt="Gypcey Logo" width={140} height={40} priority />
+          <Image src="/images/Full Logo 2.png" alt="Gypcey Logo" width={140} height={40} priority />
         </a>
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
@@ -35,10 +35,10 @@ export default function Navbar() {
             </div>
           ))}
           <a href="#" className="flex items-center gap-2 text-blue-600 font-bold">
-            <span className="material-icons">shopping_cart</span> Bucket List
+            <Image src="/bucket-list.svg" alt="Bucket List" width={24} height={24} /> Bucket List
           </a>
           <a href="#" className="flex items-center gap-2 text-orange-600 font-bold">
-            <span className="material-icons">store</span> Shop
+            <Image src="/shop.svg" alt="Shop" width={24} height={24} /> Shop
           </a>
         </div>
         {/* Mobile Nav Toggle */}
