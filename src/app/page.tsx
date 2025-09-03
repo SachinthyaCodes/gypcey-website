@@ -941,7 +941,7 @@ export default function Home() {
         </div>
         
         {/* Video Background - Desktop */}
-        <div className="hidden md:block relative h-[500px] w-full">
+        <div className="hidden md:block relative h-[600px] w-full">
           <div className="absolute inset-0 bg-black/30 z-10"></div>
           <video 
             className="absolute inset-0 w-full h-full object-cover"
@@ -956,7 +956,7 @@ export default function Home() {
           
           {/* Desktop Content - No side margins */}
           <div className="relative z-20 h-full flex items-center w-full">
-            <div className="w-full py-8 grid grid-cols-2 gap-8 px-0">
+            <div className="w-full py-12 grid grid-cols-2 gap-8 px-8 max-w-7xl mx-auto">
               {/* Left Content */}
               <div className="flex flex-col justify-center">
                 <h2 className="text-4xl font-light text-white mb-4" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
@@ -977,9 +977,9 @@ export default function Home() {
               
               {/* Right Content - Review */}
               <div className="flex items-center justify-end">
-                <div className="max-w-md bg-white/10 backdrop-blur-sm rounded-lg p-6 text-white">
+                <div className="max-w-md w-full bg-white/10 backdrop-blur-sm rounded-lg p-8 text-white mr-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-16 h-16 relative rounded-full overflow-hidden border-2 border-orange-500">
+                    <div className="w-20 h-20 relative rounded-full overflow-hidden border-2 border-orange-500">
                       <Image 
                         src={reviews[currentReviewIndex].image} 
                         alt={reviews[currentReviewIndex].name} 
@@ -988,22 +988,22 @@ export default function Home() {
                       />
                     </div>
                     <div>
-                      <h3 className="font-semibold">{reviews[currentReviewIndex].name}</h3>
+                      <h3 className="font-semibold text-lg">{reviews[currentReviewIndex].name}</h3>
                       <p className="text-sm text-white/90">{reviews[currentReviewIndex].location}</p>
                     </div>
                   </div>
                   
-                  <div className="flex mt-3 mb-3">
+                  <div className="flex mt-4 mb-4">
                     {[...Array(5)].map((_, i) => (
                       <span 
                         key={i} 
-                        className={i < reviews[currentReviewIndex].stars ? "text-yellow-400 text-lg" : "text-white/40 text-lg"}
+                        className={i < reviews[currentReviewIndex].stars ? "text-yellow-400 text-xl" : "text-white/40 text-xl"}
                       >★</span>
                     ))}
-                    <span className="ml-2 text-sm">{reviews[currentReviewIndex].rating}</span>
+                    <span className="ml-2 text-base font-medium">{reviews[currentReviewIndex].rating}</span>
                   </div>
                   
-                  <p className="text-white/90">
+                  <p className="text-white/90 text-base leading-relaxed">
                     {reviews[currentReviewIndex].text}
                   </p>
                 </div>

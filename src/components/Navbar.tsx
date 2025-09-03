@@ -123,21 +123,21 @@ export default function Navbar() {
               
               {/* Dropdown menu */}
               {link.dropdown && link.items && link.items.length > 0 && (
-                <div className="absolute left-0 mt-1 w-64 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden glass-dropdown">
+                <div className="absolute left-0 mt-1 w-64 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden dropdown-menu">
                   {/* Experience Dropdown */}
                   {link.name === "Experience" && (
                     <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-2">
                       <div className="col-span-1">
-                        <a href="#" className="text-sm text-gray-600 font-medium block mb-2 hover:text-blue-500 transition-colors">Adventures</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Wellness</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Stay & Work</a>
+                        <a href="#" className="text-sm text-gray-700 font-medium block mb-2 hover:text-blue-500 transition-colors">Adventures</a>
+                        <a href="#" className="text-sm text-gray-700 block mb-2 hover:text-blue-500 transition-colors">Wellness</a>
+                        <a href="#" className="text-sm text-gray-700 block mb-2 hover:text-blue-500 transition-colors">Stay & Work</a>
                       </div>
                       <div className="col-span-1">
-                        <a href="#" className="text-sm text-gray-600 font-medium block mb-2 hover:text-blue-500 transition-colors">Surf Camp</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Wild Safari</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Lagoon Safari</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Diving</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Fishing Tours</a>
+                        <a href="#" className="text-sm text-gray-700 font-medium block mb-2 hover:text-blue-500 transition-colors">Surf Camp</a>
+                        <a href="#" className="text-sm text-gray-700 block mb-2 hover:text-blue-500 transition-colors">Wild Safari</a>
+                        <a href="#" className="text-sm text-gray-700 block mb-2 hover:text-blue-500 transition-colors">Lagoon Safari</a>
+                        <a href="#" className="text-sm text-gray-700 block mb-2 hover:text-blue-500 transition-colors">Diving</a>
+                        <a href="#" className="text-sm text-gray-700 block mb-2 hover:text-blue-500 transition-colors">Fishing Tours</a>
                       </div>
                     </div>
                   )}
@@ -163,11 +163,25 @@ export default function Navbar() {
               )}
             </div>
           ))}
-          <a href="#" className="flex items-center gap-2 text-blue-600 text-xs" title="View Bucket List">
-            <Image src="/bucket-list.svg" alt="Bucket List" width={24} height={24} /> Bucket List
+          <a href="#" className={`flex items-center gap-2 text-xs ${isScrolled ? 'text-white' : 'text-gray-900'}`} title="View Bucket List">
+            <div className={`${isScrolled ? 'bg-blue-600' : 'bg-blue-500'} p-1 rounded flex items-center justify-center`}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                <rect width="18" height="18" x="3" y="3" rx="2" />
+                <path d="M3 9h18" />
+                <path d="M9 21V9" />
+              </svg>
+            </div>
+            Bucket List
           </a>
-          <a href="#" className="flex items-center gap-2 text-orange-600 text-xs" title="Go to Shop">
-            <Image src="/shop.svg" alt="Shop" width={24} height={24} /> Shop
+          <a href="#" className={`flex items-center gap-2 text-xs ${isScrolled ? 'text-white' : 'text-gray-900'}`} title="Go to Shop">
+            <div className={`${isScrolled ? 'bg-orange-600' : 'bg-orange-500'} p-1 rounded flex items-center justify-center`}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                <circle cx="8" cy="21" r="1" />
+                <circle cx="19" cy="21" r="1" />
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+              </svg>
+            </div>
+            Shop
           </a>
         </div>
         {/* Mobile Nav Toggle */}
@@ -186,26 +200,34 @@ export default function Navbar() {
           </div>
           {/* Burger Menu Button - This transforms to X when menu is open */}
           <button 
-            className={`focus:outline-none transition-all p-2 menu-toggle-btn z-[60] rounded-md ${
-              isScrolled || mobileMenuOpen 
-                ? 'text-white hover:bg-white/10' 
-                : 'text-gray-800 hover:bg-gray-100/50'
+            className={`focus:outline-none transition-all p-2 menu-toggle-btn z-[60] rounded-full ${
+              mobileMenuOpen 
+                ? 'bg-white/20 hover:bg-white/30 text-white' 
+                : isScrolled 
+                  ? 'text-white hover:bg-white/10' 
+                  : 'text-gray-800 hover:bg-gray-100/50'
             }`}
             aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
             title={mobileMenuOpen ? "Close Menu" : "Open Menu"}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            <div className="w-6 h-5 flex flex-col justify-between relative">
-              <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
-                isScrolled || mobileMenuOpen ? 'bg-white' : 'bg-gray-800'
-              } ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-              <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
-                isScrolled || mobileMenuOpen ? 'bg-white' : 'bg-gray-800'
-              } ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-              <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
-                isScrolled || mobileMenuOpen ? 'bg-white' : 'bg-gray-800'
-              } ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-            </div>
+            {mobileMenuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <div className="w-6 h-5 flex flex-col justify-between relative">
+                <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
+                  isScrolled ? 'bg-white' : 'bg-gray-800'
+                }`}></span>
+                <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
+                  isScrolled ? 'bg-white' : 'bg-gray-800'
+                }`}></span>
+                <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
+                  isScrolled ? 'bg-white' : 'bg-gray-800'
+                }`}></span>
+              </div>
+            )}
           </button>
         </div>
       </div>
@@ -272,12 +294,12 @@ export default function Navbar() {
               <div className={`mt-4 overflow-hidden transition-all duration-500 ease-in-out ${
                 activeMobileDropdown === "Experience" ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}>
-                <div className="bg-white/10 mx-10 rounded-lg py-2 px-4">
+                <div className="bg-gray-100 mx-10 rounded-lg py-2 px-4 text-left">
                   {experienceDropdown.map((item, index) => (
                     <a
                       key={`experience-${index}`}
                       href={item.href}
-                      className="block py-3 text-white text-base hover:opacity-80 transition-opacity"
+                      className="block py-3 text-gray-700 text-base hover:text-blue-600 transition-colors"
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent event bubbling
                         // Only close if it's a link to another page (not a hash link)
@@ -312,21 +334,21 @@ export default function Navbar() {
               <div className={`mt-4 overflow-hidden transition-all duration-500 ease-in-out ${
                 activeMobileDropdown === "Essentials" ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}>
-                <div className="bg-white/10 mx-10 rounded-lg py-2 px-4">
-                  <a href="#" className="block py-3 text-white text-base hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                <div className="bg-gray-100 mx-10 rounded-lg py-2 px-4 text-left">
+                  <a href="#" className="block py-3 text-gray-700 text-base hover:text-blue-600 transition-colors" onClick={(e) => e.stopPropagation()}>
                     Travel Guides
                   </a>
-                  <a href="#" className="block py-3 text-white text-base hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                  <a href="#" className="block py-3 text-gray-700 text-base hover:text-blue-600 transition-colors" onClick={(e) => e.stopPropagation()}>
                     Travel Health
                   </a>
-                  <a href="#" className="block py-3 text-white text-base hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                  <a href="#" className="block py-3 text-gray-700 text-base hover:text-blue-600 transition-colors" onClick={(e) => e.stopPropagation()}>
                     BLOG
                   </a>
-                  <div className="mt-4 border-t border-white/20 pt-3">
-                    <a href="#" className="block py-2 text-white text-base leading-snug hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                  <div className="mt-4 border-t border-gray-300 pt-3">
+                    <a href="#" className="block py-2 text-gray-700 text-base leading-snug hover:text-blue-600 transition-colors" onClick={(e) => e.stopPropagation()}>
                       Sun-drenched shores
                     </a>
-                    <a href="#" className="block py-2 text-white text-base leading-snug hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                    <a href="#" className="block py-2 text-gray-700 text-base leading-snug hover:text-blue-600 transition-colors" onClick={(e) => e.stopPropagation()}>
                       Rolling waves. Pure island energy on the East Coast
                     </a>
                   </div>
@@ -374,32 +396,7 @@ export default function Navbar() {
               Contact Us
             </a>
             
-            {/* Additional Links */}
-            <a 
-              href="#" 
-              className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  setMobileMenuOpen(false);
-                }
-              }}
-            >
-              Bucket List
-            </a>
-            
-            <a 
-              href="#" 
-              className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  setMobileMenuOpen(false);
-                }
-              }}
-            >
-              Shop
-            </a>
+            {/* No additional links at the bottom in mobile view */}
           </div>
         </div>
       </div>
