@@ -3,10 +3,22 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
+// Define dropdown menus for navigation items
+const experienceDropdown = [
+  { name: "Adventures", href: "#" },
+  { name: "Wellness", href: "#" },
+  { name: "Stay & Work", href: "#" },
+  { name: "Surf Camp", href: "#" },
+  { name: "Wild Safari", href: "#" },
+  { name: "Lagoon Safari", href: "#" },
+  { name: "Diving", href: "#" },
+  { name: "Fishing Tours", href: "#" },
+];
+
 const navLinks = [
-  { name: "Trips", href: "#", dropdown: true },
-  { name: "Experience", href: "#", dropdown: true },
-  { name: "Essentials", href: "#", dropdown: true },
+  { name: "Trips", href: "#", dropdown: true, items: [] },
+  { name: "Experience", href: "#", dropdown: true, items: experienceDropdown },
+  { name: "Essentials", href: "#", dropdown: true, items: [] },
   { name: "About Gypcey", href: "#" },
   { name: "Community", href: "#" },
   { name: "Contact Us", href: "#" },
@@ -14,6 +26,12 @@ const navLinks = [
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  // Handle dropdown toggle
+  const toggleDropdown = (linkName: string) => {
+    setActiveDropdown(activeDropdown === linkName ? null : linkName);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,22 +39,33 @@ export default function Navbar() {
       setIsScrolled(scrollTop > 50); // Switch to dark mode after 50px scroll
     };
 
+    // Close dropdown when clicking outside
+    const handleClickOutside = (e: MouseEvent) => {
+      if (!(e.target as Element).closest('.nav-dropdown')) {
+        setActiveDropdown(null);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('click', handleClickOutside);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
   return (
     <nav 
-      className={`w-full border-b fixed top-0 z-50 transition-all duration-300 ${
+      className={`w-full border-b fixed top-0 z-50 transition-all duration-300 font-roboto ${
         isScrolled 
           ? 'border-gray-800 bg-gray-900 shadow-lg' 
           : 'border-gray-200 bg-white'
-      }`} 
-      style={{ fontFamily: 'Roboto, Arial, sans-serif' }}
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
         {/* Logo - changes based on scroll state */}
-        <a href="#" className="flex items-center gap-2">
+        <a href="#" className="flex items-center gap-2" title="Gypcey Home">
           <Image 
             src={isScrolled ? "/images/Full Logo 1.png" : "/images/Full Logo 2.png"} 
             alt="Gypcey Logo" 
@@ -53,21 +82,39 @@ export default function Navbar() {
                 href={link.href}
                 className={`text-xs hover:text-blue-400 transition-colors px-2 py-1 ${
                   isScrolled ? 'text-white' : 'text-gray-800'
-                }`}
-                style={{ fontFamily: 'Roboto, Arial, sans-serif' }}
+                } flex items-center`}
               >
                 {link.name}
                 {link.dropdown && (
                   <span className="ml-1">&#9662;</span>
                 )}
               </a>
-              {/* Dropdown placeholder */}
+              
+              {/* Dropdown menu */}
+              {link.dropdown && link.items && link.items.length > 0 && (
+                <div className="absolute left-0 mt-1 w-64 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
+                  <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-2">
+                    <div className="col-span-1">
+                      <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Adventures</a>
+                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Wellness</a>
+                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Stay & Work</a>
+                    </div>
+                    <div className="col-span-1">
+                      <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Surf Camp</a>
+                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Wild Safari</a>
+                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Lagoon Safari</a>
+                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Diving</a>
+                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Fishing Tours</a>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
-          <a href="#" className="flex items-center gap-2 text-blue-600 text-xs" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+          <a href="#" className="flex items-center gap-2 text-blue-600 text-xs" title="View Bucket List">
             <Image src="/bucket-list.svg" alt="Bucket List" width={24} height={24} /> Bucket List
           </a>
-          <a href="#" className="flex items-center gap-2 text-orange-600 text-xs" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+          <a href="#" className="flex items-center gap-2 text-orange-600 text-xs" title="Go to Shop">
             <Image src="/shop.svg" alt="Shop" width={24} height={24} /> Shop
           </a>
         </div>
@@ -86,9 +133,13 @@ export default function Navbar() {
             />
           </div>
           {/* Menu Icon */}
-          <button className={`focus:outline-none transition-colors p-2 ${
-            isScrolled ? 'text-white' : 'text-gray-800'
-          }`}>
+          <button 
+            className={`focus:outline-none transition-colors p-2 ${
+              isScrolled ? 'text-white' : 'text-gray-800'
+            }`}
+            aria-label="Open navigation menu"
+            title="Open Menu"
+          >
             <Image 
               src="/images/menu.png" 
               alt="Menu" 

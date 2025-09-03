@@ -35,6 +35,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Font family classes */
+.font-roboto {
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
 /* Custom vignette effect with gradual blur reduction */
 .vignette-blur {
   background: linear-gradient(
