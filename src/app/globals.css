@@ -65,6 +65,21 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
+/* Mobile navigation drawer */
+.mobile-menu {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* For mobile navigation transitions */
+.max-h-0 {
+  max-height: 0;
+}
+
+.max-h-96 {
+  max-height: 24rem;
+}
+
 /* Custom vignette effect with gradual blur reduction */
 .vignette-blur {
   background: linear-gradient(
