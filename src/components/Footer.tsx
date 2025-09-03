@@ -100,6 +100,17 @@ export default function Footer() {
 
         {/* Mobile Layout - Aligned to match the provided design */}
         <div className="md:hidden flex flex-col items-center px-2">
+          {/* Logo - Mobile Only */}
+          <div className="w-full flex justify-center mb-6">
+            <Image 
+              src="/images/Full Logo 2.png" 
+              alt="Gypcey Logo" 
+              width={160} 
+              height={50} 
+              className="object-contain"
+            />
+          </div>
+          
           {/* About Site Section - Mobile */}
           <div className="w-full mb-6 text-center">
             <h3 className="text-sm font-bold uppercase mb-2 text-white">About Site</h3>
