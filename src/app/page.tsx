@@ -820,7 +820,7 @@ export default function Home() {
       {/* Video Reviews Section */}
       <section className="w-full relative overflow-hidden">
         {/* Video Background - Mobile */}
-        <div className="md:hidden relative h-[480px] w-full">
+        <div className="md:hidden relative min-h-[520px] w-full overflow-visible">
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           <video 
             className="absolute inset-0 w-full h-full object-cover"
@@ -834,14 +834,14 @@ export default function Home() {
           </video>
           
           {/* Mobile Reviews Content */}
-          <div className="relative z-20 h-full flex flex-col items-center justify-center px-4 py-8">
-            <h2 className="font-light text-center mb-2 text-white text-2xl" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+          <div className="relative z-20 h-full flex flex-col items-center justify-start pt-12 px-4 py-8">
+            <h2 className="font-light text-center mb-4 text-white text-xl md:text-2xl pt-4 px-1" style={{ fontFamily: 'Roboto, Arial, sans-serif', lineHeight: '1.3' }}>
               Escape <span className="font-bold" style={{ color: '#E47036' }}>Winter</span> in Style!
             </h2>
             
             <div className="relative w-full max-w-xs">
               {/* Reviews carousel */}
-              <div className="mt-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 text-white">
+              <div className="mt-2 bg-white/10 backdrop-blur-sm rounded-lg p-4 text-white">
                 {currentReviewIndex === 0 && (
                   <div className="flex flex-col items-center text-center">
                     <div className="w-16 h-16 relative rounded-full overflow-hidden mb-2 border-2 border-orange-500">
@@ -1351,41 +1351,106 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="w-full px-4 py-6 flex flex-col items-center">
-        <h2 className="text-blue-900 font-bold text-center text-base mb-2">Sri Lanka is the Best Country to Visit</h2>
-        <div className="w-full rounded-lg overflow-hidden shadow-md">
-          <Image src="/map.jpg" alt="Sri Lanka Map" width={400} height={200} className="w-full h-auto object-cover" />
+      {/* Sri Lanka Section */}
+      <section className="w-full py-16 flex flex-col items-center bg-white">
+        <div className="w-full max-w-6xl mx-auto px-4 md:px-8">
+          {/* Mobile View */}
+          <div className="md:hidden">
+            <div className="text-center mb-6">
+              <h2 className="text-xl md:text-2xl font-semibold" style={{ fontFamily: 'Montserrat, Arial, sans-serif', color: '#8FB58A' }}>
+                <span className="font-bold" style={{ color: '#E47036' }}>Sri Lanka</span> is the Best Country To Visit
+              </h2>
+            </div>
+            
+            {/* Sri Lanka Map - Mobile (Full Width) */}
+            <div className="flex justify-center px-4 mb-6">
+              <div className="relative w-full">
+                <Image 
+                  src="/images/sri-lanka-map.png" 
+                  alt="Sri Lanka Map" 
+                  width={400} 
+                  height={550} 
+                  className="w-full h-auto rounded-2xl"
+                  priority
+                  style={{ objectFit: 'contain' }}
+                />
+              </div>
+            </div>
+          </div>
+          
+          {/* Desktop View */}
+          <div className="hidden md:block">
+            <div className="flex flex-row items-start">
+              {/* Left Column - Map */}
+              <div className="w-[45%] pr-8 flex justify-center">
+                <div className="w-[90%]">
+                  <Image 
+                    src="/images/sri-lanka-map.png" 
+                    alt="Sri Lanka Map" 
+                    width={480} 
+                    height={650} 
+                    className="w-full h-auto rounded-3xl"
+                    priority
+                    style={{ objectFit: 'contain' }}
+                  />
+                </div>
+              </div>
+              
+              {/* Right Column - Content */}
+              <div className="w-[55%] pt-4">
+                <div className="mb-8">
+                  <h2 className="text-3xl font-light mb-8" style={{ fontFamily: 'Montserrat, Arial, sans-serif', color: '#8FB58A' }}>
+                    <span className="font-bold" style={{ color: '#E47036' }}>Sri Lanka</span> is the Most Valuable<br />
+                    destination you have to visit
+                  </h2>
+                  
+                  <h3 className="text-xl font-semibold mb-4">Galle Fort</h3>
+                  <p className="text-base text-gray-600 leading-relaxed mb-8">
+                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
+                  </p>
+                </div>
+                
+                {/* Image Gallery - Desktop */}
+                <div className="flex gap-5">
+                  <div className="w-[50%]">
+                    <div className="w-full h-64 relative rounded-lg overflow-hidden shadow-lg">
+                      <Image 
+                        src="/images/last-section-photo1.jpg" 
+                        alt="Galle Fort Beach View" 
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-700"
+                        sizes="33vw"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-[50%] flex gap-5">
+                    <div className="w-1/2 h-64 relative rounded-lg overflow-hidden shadow-lg">
+                      <Image 
+                        src="/images/last-section-photo2.jpg" 
+                        alt="Sri Lanka Cultural Festival" 
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-700"
+                        sizes="17vw"
+                      />
+                    </div>
+                    <div className="w-1/2 h-64 relative rounded-lg overflow-hidden shadow-lg">
+                      <Image 
+                        src="/images/last-section-photo3.jpg" 
+                        alt="Sri Lanka Nature" 
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-700"
+                        sizes="17vw"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Footer Section */}
-      <footer className="w-full bg-gray-50 border-t border-gray-200 text-gray-800 py-8 px-4 mt-8 flex flex-col items-center">
-        <Image src="/logo.svg" alt="Gypcey Logo" width={120} height={40} />
-        <div className="mt-4 text-center text-xs max-w-md text-gray-600">
-          ABOUT SITE<br />
-          Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-        </div>
-        <form className="mt-4 w-full max-w-xs flex flex-col items-center">
-          <input type="email" placeholder="Email Address Here" className="w-full px-3 py-2 rounded-md border border-gray-300 text-gray-800" />
-          <button className="mt-2 bg-blue-600 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-700 transition-colors">Subscribe</button>
-        </form>
-        <div className="mt-4 flex flex-col items-center gap-2">
-          <div className="flex gap-4">
-            <a href="#" className="hover:underline">Travel Packages</a>
-            <a href="#" className="hover:underline">Coworking and Coliving</a>
-            <a href="#" className="hover:underline">Warm Escape</a>
-            <a href="#" className="hover:underline">Blog</a>
-            <a href="#" className="hover:underline">About Us</a>
-          </div>
-          <div className="flex gap-4 mt-2">
-            <a href="#" className="hover:underline">Facebook</a>
-            <a href="#" className="hover:underline">Instagram</a>
-            <a href="#" className="hover:underline">Twitter</a>
-          </div>
-        </div>
-        <div className="mt-4 text-xs">© 2024 Gypcey. All Rights Reserved.</div>
-      </footer>
+      {/* Map Section - Removed as requested */}
     </main>
   );
 }

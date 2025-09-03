@@ -4,6 +4,28 @@
 :root {
   --background: #f8fafc;
   --foreground: #22223b;
+  /* Scale factor to make 100% zoom appear like 125% zoom */
+  font-size: 125%;
+}
+
+/* Scale adjustment for different screen sizes */
+@media screen and (max-width: 768px) {
+  :root {
+    /* Slightly smaller scale for tablets */
+    font-size: 120%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  :root {
+    /* Adjusted scale for mobile to prevent overflow */
+    font-size: 115%;
+  }
+}
+
+/* Additional class to help with consistent scaling */
+.scale-125-root {
+  transform-origin: top center;
 }
 
 
@@ -27,6 +49,7 @@ body {
     rgba(0, 0, 0, 0.01) 95%,
     transparent 100%
   );
+  -webkit-backdrop-filter: blur(0.5px);
   backdrop-filter: blur(0.5px);
 }
 
@@ -38,8 +61,9 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
-  mask: linear-gradient(
+  -webkit-mask: linear-gradient(
     to top,
     black 0%,
     rgba(0, 0, 0, 0.8) 20%,
@@ -48,7 +72,7 @@ body {
     rgba(0, 0, 0, 0.05) 80%,
     transparent 100%
   );
-  -webkit-mask: linear-gradient(
+  mask: linear-gradient(
     to top,
     black 0%,
     rgba(0, 0, 0, 0.8) 20%,
