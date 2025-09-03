@@ -1,6 +1,7 @@
 /**
  * Footer links and content configuration
  */
+import { SocialType } from '@/components/ui/SocialIcon';
 
 export const footerLinks = [
   { title: 'Travel Packages', href: '/travel-packages' },
@@ -10,7 +11,7 @@ export const footerLinks = [
   { title: 'About Us', href: '/about' }
 ];
 
-export const socialLinks = [
+export const socialLinks: { type: SocialType; href: string }[] = [
   { type: 'facebook', href: 'https://facebook.com/gypcey' },
   { type: 'whatsapp', href: 'https://wa.me/yournumber' },
   { type: 'linkedin', href: 'https://linkedin.com/company/gypcey' },
