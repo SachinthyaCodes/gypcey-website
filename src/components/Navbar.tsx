@@ -15,10 +15,18 @@ const experienceDropdown = [
   { name: "Fishing Tours", href: "#" },
 ];
 
+const essentialsDropdown = [
+  { name: "Travel Guides", href: "#" },
+  { name: "Travel Health", href: "#" },
+  { name: "BLOG", href: "#" },
+  { name: "Sun-drenched shores", href: "#", description: true },
+  { name: "Rolling waves. Pure island energy on the East Coast", href: "#", description: true },
+];
+
 const navLinks = [
   { name: "Trips", href: "#", dropdown: true, items: [] },
   { name: "Experience", href: "#", dropdown: true, items: experienceDropdown },
-  { name: "Essentials", href: "#", dropdown: true, items: [] },
+  { name: "Essentials", href: "#", dropdown: true, items: essentialsDropdown },
   { name: "About Gypcey", href: "#" },
   { name: "Community", href: "#" },
   { name: "Contact Us", href: "#" },
@@ -93,20 +101,37 @@ export default function Navbar() {
               {/* Dropdown menu */}
               {link.dropdown && link.items && link.items.length > 0 && (
                 <div className="absolute left-0 mt-1 w-64 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
-                  <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-2">
-                    <div className="col-span-1">
-                      <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Adventures</a>
-                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Wellness</a>
-                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Stay & Work</a>
+                  {/* Experience Dropdown */}
+                  {link.name === "Experience" && (
+                    <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-2">
+                      <div className="col-span-1">
+                        <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Adventures</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Wellness</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Stay & Work</a>
+                      </div>
+                      <div className="col-span-1">
+                        <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Surf Camp</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Wild Safari</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Lagoon Safari</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Diving</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Fishing Tours</a>
+                      </div>
                     </div>
-                    <div className="col-span-1">
-                      <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Surf Camp</a>
-                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Wild Safari</a>
-                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Lagoon Safari</a>
-                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Diving</a>
-                      <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Fishing Tours</a>
+                  )}
+
+                  {/* Essentials Dropdown */}
+                  {link.name === "Essentials" && (
+                    <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-2">
+                      <div className="col-span-1">
+                        <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Travel Guides</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Travel Health</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">BLOG</a>
+                      </div>
+                      <div className="col-span-1">
+                        <p className="text-sm text-gray-700 leading-snug">Sun-drenched shores. <br/>Rolling waves. Pure island <br/>energy on the East Coast</p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
             </div>
