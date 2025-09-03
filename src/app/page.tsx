@@ -701,29 +701,22 @@ export default function Home() {
             </button>
           </div>
           <div className="text-center mt-4">
-            <span className="text-xs text-gray-600">Click Your Choice For More Details...</span>
+            <span className="text-sm text-gray-700">Click Your Choice For More Details...</span>
           </div>
         </div>
 
-
-
-        {/* Call to Action */}
-        <div className="text-center mt-6">
-          <p className="text-gray-400 text-sm" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
-            Click Your Choice For More Details...
-          </p>
-        </div>
+        {/* Call to Action - Removed duplicate text */}
       </section>
 
       {/* Surfing Gallery Section - Mobile */}
       <section className="md:hidden w-full bg-white">
-        <div className="px-4 py-8">
-          <h2 className="text-2xl md:text-3xl font-light text-center mb-6" style={{ fontFamily: 'Roboto, Arial, sans-serif', color: '#90AF84' }}>
+        <div className="py-8">
+          <h2 className="text-2xl md:text-3xl font-light text-center mb-6 px-4" style={{ fontFamily: 'Roboto, Arial, sans-serif', color: '#90AF84' }}>
             Surfing <span className="font-bold" style={{ color: '#E47036' }}>On World Best,</span> Untouched Beaches
           </h2>
           
-          {/* Gallery Grid - Mobile */}
-          <div className="grid grid-cols-2 gap-0">
+          {/* Gallery Grid - Mobile - No side margins */}
+          <div className="grid grid-cols-2 gap-0 mx-0">
             <div className="h-44 relative">
               <Image src="/images/gallery1.jpg" alt="Surfing beach" fill className="object-cover" />
             </div>
@@ -768,8 +761,8 @@ export default function Home() {
 
       {/* Surfing Gallery Section - Desktop */}
       <section className="hidden md:block w-full bg-white">
-        <div className="container mx-auto px-4 py-16">
-          <div className="flex justify-between items-center mb-8">
+        <div className="py-16">
+          <div className="flex justify-between items-center mb-8 px-4 mx-auto container">
             <h2 className="text-2xl md:text-3xl font-light" style={{ fontFamily: 'Roboto, Arial, sans-serif', color: '#90AF84' }}>
               Surfing <span className="font-bold" style={{ color: '#E47036' }}>On World Best,</span> Untouched Beaches
             </h2>
@@ -778,10 +771,10 @@ export default function Home() {
             </button>
           </div>
           
-          <p className="text-gray-600 mb-8">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+          <p className="text-gray-600 mb-8 px-4 mx-auto container">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
           
-          {/* Gallery Grid - Desktop */}
-          <div className="grid grid-cols-10 grid-rows-4 gap-0 h-[600px]">
+          {/* Gallery Grid - Desktop - No side margins */}
+          <div className="grid grid-cols-10 grid-rows-4 gap-0 h-[600px] w-full">
             <div className="col-span-2 row-span-4 relative">
               <Image src="/images/gallery1.jpg" alt="Beach with palm trees" fill className="object-cover" />
             </div>
@@ -833,8 +826,8 @@ export default function Home() {
             Your browser does not support the video tag.
           </video>
           
-          {/* Mobile Reviews Content */}
-          <div className="relative z-20 h-full flex flex-col items-center justify-start pt-12 px-4 py-8">
+          {/* Mobile Reviews Content - No side margins */}
+          <div className="relative z-20 h-full flex flex-col items-center justify-start pt-12 px-0 py-8">
             <h2 className="font-light text-center mb-4 text-white text-xl md:text-2xl pt-4 px-1" style={{ fontFamily: 'Roboto, Arial, sans-serif', lineHeight: '1.3' }}>
               Escape <span className="font-bold" style={{ color: '#E47036' }}>Winter</span> in Style!
             </h2>
@@ -961,9 +954,9 @@ export default function Home() {
             Your browser does not support the video tag.
           </video>
           
-          {/* Desktop Content */}
-          <div className="relative z-20 h-full flex items-center">
-            <div className="container mx-auto px-4 py-8 grid grid-cols-2 gap-8">
+          {/* Desktop Content - No side margins */}
+          <div className="relative z-20 h-full flex items-center w-full">
+            <div className="w-full py-8 grid grid-cols-2 gap-8 px-0">
               {/* Left Content */}
               <div className="flex flex-col justify-center">
                 <h2 className="text-4xl font-light text-white mb-4" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
