@@ -21,14 +21,8 @@ export default function Navbar() {
     closeOnClickOutside: true
   });
   
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
 
-  // Handle dropdown toggle
-  const toggleDropdown = (linkName: string) => {
-    setActiveDropdown(activeDropdown === linkName ? null : linkName);
-  };
-  
   // Handle mobile dropdown toggle
   const toggleMobileDropdown = (linkName: string) => {
     setActiveMobileDropdown(activeMobileDropdown === linkName ? null : linkName);
@@ -300,7 +294,7 @@ export default function Navbar() {
               onClick={(e) => {
                 e.stopPropagation();
                 if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  setMobileMenuOpen(false);
+                  mobileMenu.close();
                 }
               }}
             >
@@ -313,7 +307,7 @@ export default function Navbar() {
               onClick={(e) => {
                 e.stopPropagation();
                 if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  setMobileMenuOpen(false);
+                  mobileMenu.close();
                 }
               }}
             >
@@ -326,7 +320,7 @@ export default function Navbar() {
               onClick={(e) => {
                 e.stopPropagation();
                 if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  setMobileMenuOpen(false);
+                  mobileMenu.close();
                 }
               }}
             >
