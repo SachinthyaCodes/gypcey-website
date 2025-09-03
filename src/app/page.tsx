@@ -273,14 +273,7 @@ export default function Home() {
 
   // Removed auto-switching effect for carousel items
 
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
-  const goToCarouselSlide = (index: number) => {
-    setCurrentCarouselSlide(index);
-  };
-
+  // Functions to navigate hero cards
   const goToHeroSlide = (index: number) => {
     setCurrentHeroSlide(index);
   };
@@ -293,57 +286,44 @@ export default function Home() {
     <main className="w-full min-h-screen bg-white flex flex-col items-center pt-20">
       {/* Hero Section */}
       <section className="w-full flex flex-col items-center pt-6 pb-4 px-4 sm:px-8">
-        <h1 
-          className="text-blue-900 text-center"
-          style={{
-            fontFamily: 'Montserrat, Arial, sans-serif',
-            fontWeight: 800,
-            fontStyle: 'normal',
-            fontSize: '28px',
-            lineHeight: '100%',
-            letterSpacing: '0px',
-            textAlign: 'center'
-          }}
-        >
+        <h1 className="text-blue-900 text-center heading-primary">
           Explore. Work. Wander Gypcey Your Journey
         </h1>
         <div className="w-full mt-4 max-w-6xl mx-auto relative overflow-hidden">
           {/* Mobile view - show one card at a time */}
-          <div className="md:hidden">
-            <div className="relative h-96">
-              {heroCards.map((card, index) => (
-                <div
-                  key={index}
-                  className={`absolute inset-0 transition-transform duration-500 ease-in-out ${
-                    index === currentMobileHeroSlide ? 'translate-x-0' : 
-                    index < currentMobileHeroSlide ? '-translate-x-full' : 'translate-x-full'
-                  }`}
-                >
-                  <div className="relative rounded-lg overflow-hidden shadow-lg bg-gray-200 h-full group cursor-pointer">
-                    <Image 
-                      src={card.image}
-                      alt={card.alt}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      sizes="100vw"
-                      priority={index === 0}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-xl font-bold mb-2" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
-                        {card.title}
-                      </h3>
-                      <p className="text-sm opacity-90" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
-                        {card.description}
-                      </p>
+              <div className="md:hidden">
+                <div className="relative h-96">
+                  {heroCards.map((card, index) => (
+                    <div
+                      key={index}
+                      className={`absolute inset-0 transition-transform duration-500 ease-in-out ${
+                        index === currentMobileHeroSlide ? 'translate-x-0' : 
+                        index < currentMobileHeroSlide ? '-translate-x-full' : 'translate-x-full'
+                      }`}
+                    >
+                      <div className="relative rounded-lg overflow-hidden shadow-lg bg-gray-200 h-full group cursor-pointer">
+                        <Image 
+                          src={card.image}
+                          alt={card.alt}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          sizes="100vw"
+                          priority={index === 0}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                          <h3 className="text-xl font-bold mb-2 card-title">
+                            {card.title}
+                          </h3>
+                          <p className="text-sm opacity-90 card-description">
+                            {card.description}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop view - show 3 cards at a time */}
+              </div>          {/* Desktop view - show 3 cards at a time */}
           <div className="hidden md:block">
             <div className="relative h-96">
               {/* First set of 3 cards */}
@@ -362,10 +342,10 @@ export default function Home() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-xl font-bold mb-2" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                      <h3 className="text-xl font-bold mb-2 card-title">
                         {card.title}
                       </h3>
-                      <p className="text-sm opacity-90" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                      <p className="text-sm opacity-90 card-description">
                         {card.description}
                       </p>
                     </div>
@@ -388,10 +368,10 @@ export default function Home() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-xl font-bold mb-2" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                      <h3 className="text-xl font-bold mb-2 card-title">
                         {card.title}
                       </h3>
-                      <p className="text-sm opacity-90" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                      <p className="text-sm opacity-90 card-description">
                         {card.description}
                       </p>
                     </div>
@@ -412,6 +392,7 @@ export default function Home() {
                   className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                     index === currentMobileHeroSlide ? 'bg-orange-500' : 'bg-gray-300'
                   }`}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
             </div>
@@ -425,6 +406,7 @@ export default function Home() {
                   className={`w-3 h-3 rounded-full transition-colors duration-200 ${
                     slideIndex === currentHeroSlide ? 'bg-orange-500' : 'bg-gray-300'
                   }`}
+                  aria-label={`Go to hero slide set ${slideIndex + 1}`}
                 />
               ))}
             </div>
@@ -434,17 +416,7 @@ export default function Home() {
 
       {/* Travel Options Section */}
       <section className="w-full px-4 py-6 flex flex-col items-center">
-        <h2 
-          className="text-blue-900 text-center mb-4 font-normal md:font-extrabold"
-          style={{
-            fontFamily: 'Montserrat, Arial, sans-serif',
-            fontStyle: 'normal',
-            fontSize: '28px',
-            lineHeight: '120%',
-            letterSpacing: '0px',
-            textAlign: 'center'
-          }}
-        >
+        <h2 className="text-blue-900 text-center mb-4 font-normal md:font-extrabold heading-secondary">
           Where Will The Wind Take You? Choose By Season,<br />
           Style, or Go Freestyle
         </h2>
@@ -489,34 +461,34 @@ export default function Home() {
             {/* Sri Lanka travel options */}
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/sri-lanka 1.png" alt="South-West Season" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600 font-roboto">
                 <div>South-West Season</div>
                 <div>(November-March)</div>
               </div>
             </div>
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/sri-lanka 2.png" alt="East Season" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600 font-roboto">
                 <div>East Season</div>
                 <div>(April-October)</div>
               </div>
             </div>
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/sri-lanka 3.png" alt="Year-Round" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600 font-roboto">
                 <div>Year-Round</div>
                 <div>(Perfect Anytime)</div>
               </div>
             </div>
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/sri-lanka 4.png" alt="Special Escapes" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600 font-roboto">
                 <div>Special Escapes</div>
               </div>
             </div>
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/sri-lanka 5.png" alt="Offbeat" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-blue-600 font-roboto">
                 <div>Offbeat</div>
                 <div>(Hidden Gems)</div>
               </div>
@@ -529,31 +501,31 @@ export default function Home() {
             {/* Travel Mode options */}
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/Free-Spirit.png" alt="Free-Spirit" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600 font-roboto">
                 <div>Free-Spirit</div>
               </div>
             </div>
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/Adrenaline.png" alt="Adrenaline" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600 font-roboto">
                 <div>Adrenaline</div>
               </div>
             </div>
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/Barefoot-Luxe.png" alt="Barefoot-Luxe" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600 font-roboto">
                 <div>Barefoot-Luxe</div>
               </div>
             </div>
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/Soulful.png" alt="Soulful" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600 font-roboto">
                 <div>Soulful</div>
               </div>
             </div>
             <div className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg">
               <Image src="/images/Retreat.png" alt="Retreat" width={80} height={80} className="object-contain transition-transform duration-300 hover:scale-110" />
-              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <div className="text-xs mt-2 text-center transition-colors duration-300 hover:text-orange-600 font-roboto">
                 <div>Retreat</div>
               </div>
             </div>
@@ -563,29 +535,20 @@ export default function Home() {
         {activeTab === 'free-style' && (
           <div className="flex flex-col items-center max-w-md mx-auto px-4">
             {/* Free Style Content */}
-            <h3 className="text-lg font-bold mb-4 text-center" style={{ 
-              fontFamily: 'Roboto, Arial, sans-serif',
-              color: '#e67e22'
-            }}>
+            <h3 className="text-lg font-bold mb-4 text-center text-orange-accent font-roboto">
               Wander Your Way – Your Adventure, Your Rules!
             </h3>
             
-            <p className="text-sm text-gray-700 text-center mb-6 leading-relaxed" style={{ 
-              fontFamily: 'Roboto, Arial, sans-serif'
-            }}>
+            <p className="text-sm text-gray-700 text-center mb-6 leading-relaxed font-roboto">
               Dreaming of the perfect escape? Make it surf, safari, culture, or a bit of everything—tell us what moves you, and we'll craft a journey that's uniquely yours
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 w-full">
-              <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm" style={{ 
-                fontFamily: 'Roboto, Arial, sans-serif'
-              }}>
+              <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm font-roboto">
                 Whats app Now
               </button>
               
-              <button className="flex-1 bg-transparent border-2 border-orange-500 text-orange-500 hover:bg-orange-50 font-medium py-2 px-4 rounded-md transition-colors text-sm" style={{ 
-                fontFamily: 'Roboto, Arial, sans-serif'
-              }}>
+              <button className="flex-1 bg-transparent border-2 border-orange-500 text-orange-500 hover:bg-orange-50 font-medium py-2 px-4 rounded-md transition-colors text-sm font-roboto">
                 Email Us
               </button>
             </div>
@@ -596,8 +559,8 @@ export default function Home() {
       {/* Travel With Us Section */}
       <section className="w-full px-4 py-10 flex flex-col items-center">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-light" style={{ fontFamily: 'Roboto, Arial, sans-serif', color: '#90AF84' }}>
-            Travel With Us. We Introduce <span className="font-bold" style={{ color: '#E47036' }}>Better</span> Place to Visit
+          <h2 className="text-2xl md:text-3xl font-light text-green-accent font-roboto">
+            Travel With Us. We Introduce <span className="font-bold text-orange-accent">Better</span> Place to Visit
           </h2>
         </div>
 
@@ -711,8 +674,8 @@ export default function Home() {
       {/* Surfing Gallery Section - Mobile */}
       <section className="md:hidden w-full bg-white">
         <div className="py-8">
-          <h2 className="text-2xl md:text-3xl font-light text-center mb-6 px-4" style={{ fontFamily: 'Roboto, Arial, sans-serif', color: '#90AF84' }}>
-            Surfing <span className="font-bold" style={{ color: '#E47036' }}>On World Best,</span> Untouched Beaches
+          <h2 className="text-2xl md:text-3xl font-light text-center mb-6 px-4 text-green-accent font-roboto">
+            Surfing <span className="font-bold text-orange-accent">On World Best,</span> Untouched Beaches
           </h2>
           
           {/* Gallery Grid - Mobile - No side margins */}
@@ -763,8 +726,8 @@ export default function Home() {
       <section className="hidden md:block w-full bg-white">
         <div className="py-16">
           <div className="flex justify-between items-center mb-8 px-4 mx-auto container">
-            <h2 className="text-2xl md:text-3xl font-light" style={{ fontFamily: 'Roboto, Arial, sans-serif', color: '#90AF84' }}>
-              Surfing <span className="font-bold" style={{ color: '#E47036' }}>On World Best,</span> Untouched Beaches
+            <h2 className="text-2xl md:text-3xl font-light text-green-accent font-roboto">
+              Surfing <span className="font-bold text-orange-accent">On World Best,</span> Untouched Beaches
             </h2>
             <button className="bg-orange-500 text-white font-medium px-6 py-2 text-sm rounded-md">
               Contact Us Now
@@ -828,8 +791,8 @@ export default function Home() {
           
           {/* Mobile Reviews Content - No side margins */}
           <div className="relative z-20 h-full flex flex-col items-center justify-start pt-12 px-0 py-8">
-            <h2 className="font-light text-center mb-4 text-white text-xl md:text-2xl pt-4 px-1" style={{ fontFamily: 'Roboto, Arial, sans-serif', lineHeight: '1.3' }}>
-              Escape <span className="font-bold" style={{ color: '#E47036' }}>Winter</span> in Style!
+            <h2 className="font-light text-center mb-4 text-white text-xl md:text-2xl pt-4 px-1 font-roboto leading-tight">
+              Escape <span className="font-bold text-orange-accent">Winter</span> in Style!
             </h2>
             
             <div className="relative w-full max-w-xs">
@@ -928,7 +891,7 @@ export default function Home() {
             </div>
             
             {/* Play button */}
-            <button className="mt-6 w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
+            <button className="mt-6 w-14 h-14 rounded-full bg-white/20 flex items-center justify-center" aria-label="Play video">
               <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center">
                 <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-orange-500 ml-1"></div>
               </div>
@@ -959,14 +922,14 @@ export default function Home() {
             <div className="w-full py-12 grid grid-cols-2 gap-8 px-8 max-w-7xl mx-auto">
               {/* Left Content */}
               <div className="flex flex-col justify-center">
-                <h2 className="text-4xl font-light text-white mb-4" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
-                  Escape <span className="font-bold" style={{ color: '#E47036' }}>Winter</span> in Style!
+                <h2 className="text-4xl font-light text-white mb-4 font-roboto">
+                  Escape <span className="font-bold text-orange-accent">Winter</span> in Style!
                 </h2>
                 <p className="text-white/80 mb-8">
                   "MO is the best. Besides the many and Superb Products, the service..."
                 </p>
                 <div className="flex items-center space-x-4">
-                  <button className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
+                  <button className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center" aria-label="Play video">
                     <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center">
                       <div className="w-0 h-0 border-y-8 border-y-transparent border-l-12 border-l-orange-500 ml-1"></div>
                     </div>
@@ -1027,8 +990,8 @@ export default function Home() {
 
       {/* Pricing Section */}
       <section className="w-full px-4 py-10 flex flex-col items-center bg-gray-50">
-        <h2 className="text-2xl md:text-3xl font-light text-center mb-6" style={{ fontFamily: 'Roboto, Arial, sans-serif', color: '#90AF84' }}>
-          Choose Your <span className="font-bold" style={{ color: '#E47036' }}>Perfect</span> Travel Package
+        <h2 className="text-2xl md:text-3xl font-light text-center mb-6 text-green-accent font-roboto">
+          Choose Your <span className="font-bold text-orange-accent">Perfect</span> Travel Package
         </h2>
         
         {/* Mobile View with Horizontal Slider */}
@@ -1036,15 +999,14 @@ export default function Home() {
           <div className="relative h-[420px] w-full overflow-hidden">
             {/* Essential Package */}
             <div 
-              className={`absolute inset-0 w-full h-full will-change-transform transition-transform duration-500 ease-out ${
+              className={`absolute inset-0 w-full h-full will-change-transform transition-transform duration-500 ease-out backface-hidden ${
                 currentPricingSlide === 0 ? 'translate-x-0' : 
                 currentPricingSlide === 1 ? '-translate-x-full' : '-translate-x-[200%]'
               }`}
-              style={{ backfaceVisibility: 'hidden' }}
             >
               <div className="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-all duration-300 hover:shadow-xl hover:scale-105">
                 <div className="px-4 py-4 text-center border-b border-gray-100">
-                  <p className="text-orange-500 font-medium text-sm" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                  <p className="text-orange-500 font-medium text-sm font-roboto">
                     Essential
                   </p>
                   <h3 className="flex items-center justify-center my-2">
@@ -1082,15 +1044,14 @@ export default function Home() {
             
             {/* Premium Package */}
             <div 
-              className={`absolute inset-0 w-full h-full will-change-transform transition-transform duration-500 ease-out ${
+              className={`absolute inset-0 w-full h-full will-change-transform transition-transform duration-500 ease-out backface-hidden ${
                 currentPricingSlide === 1 ? 'translate-x-0' : 
                 currentPricingSlide === 0 ? 'translate-x-full' : '-translate-x-full'
               }`}
-              style={{ backfaceVisibility: 'hidden' }}
             >
               <div className="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-all duration-300 hover:shadow-xl hover:scale-105">
                 <div className="px-4 py-4 text-center border-b border-gray-100">
-                  <p className="text-orange-500 font-medium text-sm" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                  <p className="text-orange-500 font-medium text-sm font-roboto">
                     Premium
                   </p>
                   <h3 className="flex items-center justify-center my-2">
@@ -1136,15 +1097,14 @@ export default function Home() {
             
             {/* Premium+ Package */}
             <div 
-              className={`absolute inset-0 w-full h-full will-change-transform transition-transform duration-500 ease-out ${
+              className={`absolute inset-0 w-full h-full will-change-transform transition-transform duration-500 ease-out backface-hidden ${
                 currentPricingSlide === 2 ? 'translate-x-0' : 
                 currentPricingSlide < 2 ? 'translate-x-full' : '-translate-x-full'
               }`}
-              style={{ backfaceVisibility: 'hidden' }}
             >
               <div className="bg-white rounded-lg shadow-md overflow-hidden h-full transform transition-all duration-300 hover:shadow-xl hover:scale-105">
                 <div className="px-4 py-4 text-center border-b border-gray-100">
-                  <p className="text-orange-500 font-medium text-sm" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+                  <p className="text-orange-500 font-medium text-sm font-roboto">
                     Premium+
                   </p>
                   <h3 className="flex items-center justify-center my-2">
@@ -1210,10 +1170,9 @@ export default function Home() {
         
         {/* Desktop View with Horizontal Layout */}          <div id="pricing-slider-desktop" className="hidden md:flex md:flex-row gap-6 w-full max-w-3xl mx-auto">
           {/* Essential Package */}
-          <div className="bg-white rounded-lg shadow-md overflow-hidden flex-1 transform transition-transform duration-300 hover:shadow-lg hover:scale-105"
-               style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}>
-            <div className="px-4 py-4 text-center border-b border-gray-100">
-              <p className="text-orange-500 font-medium text-sm" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+          <div className="bg-white rounded-lg shadow-md overflow-hidden flex-1 transform transition-transform duration-300 hover:shadow-lg hover:scale-105">
+               <div className="px-4 py-4 text-center border-b border-gray-100">
+              <p className="text-orange-500 font-medium text-sm font-roboto">
                 Essential
               </p>
               <h3 className="flex items-center justify-center my-2">
@@ -1249,10 +1208,9 @@ export default function Home() {
           </div>
           
           {/* Premium Package */}
-          <div className="bg-white rounded-lg shadow-md overflow-hidden flex-1 transform transition-transform duration-300 hover:shadow-lg hover:scale-105"
-               style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}>
+          <div className="bg-white rounded-lg shadow-md overflow-hidden flex-1 transform transition-transform duration-300 hover:shadow-lg hover:scale-105">
             <div className="px-4 py-4 text-center border-b border-gray-100">
-              <p className="text-orange-500 font-medium text-sm" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <p className="text-orange-500 font-medium text-sm font-roboto">
                 Premium
               </p>
               <h3 className="flex items-center justify-center my-2">
@@ -1296,10 +1254,9 @@ export default function Home() {
           </div>
           
           {/* Premium+ Package */}
-          <div className="bg-white rounded-lg shadow-md overflow-hidden flex-1 transform transition-transform duration-300 hover:shadow-lg hover:scale-105"
-               style={{ willChange: 'transform', backfaceVisibility: 'hidden' }}>
+          <div className="bg-white rounded-lg shadow-md overflow-hidden flex-1 transform transition-transform duration-300 hover:shadow-lg hover:scale-105">
             <div className="px-4 py-4 text-center border-b border-gray-100">
-              <p className="text-orange-500 font-medium text-sm" style={{ fontFamily: 'Roboto, Arial, sans-serif' }}>
+              <p className="text-orange-500 font-medium text-sm font-roboto">
                 Premium+
               </p>
               <h3 className="flex items-center justify-center my-2">
@@ -1350,8 +1307,8 @@ export default function Home() {
           {/* Mobile View */}
           <div className="md:hidden">
             <div className="text-center mb-6">
-              <h2 className="text-xl md:text-2xl font-semibold" style={{ fontFamily: 'Montserrat, Arial, sans-serif', color: '#8FB58A' }}>
-                <span className="font-bold" style={{ color: '#E47036' }}>Sri Lanka</span> is the Best Country To Visit
+              <h2 className="text-xl md:text-2xl font-semibold font-montserrat text-green-accent">
+                <span className="font-bold text-orange-accent">Sri Lanka</span> is the Best Country To Visit
               </h2>
             </div>
             
@@ -1392,8 +1349,8 @@ export default function Home() {
               {/* Right Column - Content */}
               <div className="w-[55%] pt-4">
                 <div className="mb-8">
-                  <h2 className="text-3xl font-light mb-8" style={{ fontFamily: 'Montserrat, Arial, sans-serif', color: '#8FB58A' }}>
-                    <span className="font-bold" style={{ color: '#E47036' }}>Sri Lanka</span> is the Most Valuable<br />
+                  <h2 className="text-3xl font-light mb-8 font-montserrat text-green-accent">
+                    <span className="font-bold text-orange-accent">Sri Lanka</span> is the Most Valuable<br />
                     destination you have to visit
                   </h2>
                   
