@@ -2,40 +2,26 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { navigationLinks, experienceDropdownItems, essentialsDropdownItems } from "@/config/navigation";
+import useScrollAndClickOutside from "@/hooks/useScrollAndClickOutside";
+import IconButton from "@/components/ui/IconButton";
+import { DropdownContainer, DropdownItem } from "@/components/ui/Dropdown";
+import { NavItem, DropdownItem as DropdownItemType } from "@/types";
 
-// Define dropdown menus for navigation items
-const experienceDropdown = [
-  { name: "Adventures", href: "#" },
-  { name: "Wellness", href: "#" },
-  { name: "Stay & Work", href: "#" },
-  { name: "Surf Camp", href: "#" },
-  { name: "Wild Safari", href: "#" },
-  { name: "Lagoon Safari", href: "#" },
-  { name: "Diving", href: "#" },
-  { name: "Fishing Tours", href: "#" },
-];
-
-const essentialsDropdown = [
-  { name: "Travel Guides", href: "#" },
-  { name: "Travel Health", href: "#" },
-  { name: "BLOG", href: "#" },
-  { name: "Sun-drenched shores", href: "#", description: true },
-  { name: "Rolling waves. Pure island energy on the East Coast", href: "#", description: true },
-];
-
-const navLinks = [
-  { name: "Trips", href: "#", dropdown: true, items: [] },
-  { name: "Experience", href: "#", dropdown: true, items: experienceDropdown },
-  { name: "Essentials", href: "#", dropdown: true, items: essentialsDropdown },
-  { name: "About Gypcey", href: "#" },
-  { name: "Community", href: "#" },
-  { name: "Contact Us", href: "#" },
-];
-
+/**
+ * Main navigation bar component for the website
+ * Handles responsive behavior, dropdowns, and scroll effects
+ */
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  // Use our custom hook for scroll and mobile menu state
+  const mobileMenu = useScrollAndClickOutside({
+    scrollThreshold: 50,
+    onClickOutsideElements: ['.mobile-menu-bg', '.menu-toggle-btn'],
+    closeOnClickOutside: true
+  });
+  
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
 
   // Handle dropdown toggle
@@ -48,71 +34,33 @@ export default function Navbar() {
     setActiveMobileDropdown(activeMobileDropdown === linkName ? null : linkName);
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 50); // Switch to dark mode after 50px scroll
-    };
-
-    // Close dropdown when clicking outside
-    const handleClickOutside = (e: MouseEvent) => {
-      if (!(e.target as Element).closest('.nav-dropdown')) {
-        setActiveDropdown(null);
-      }
-      
-      // Close mobile menu when clicking outside of menu or burger button
-      if (mobileMenuOpen && 
-          !(e.target as Element).closest('.mobile-menu-bg') && 
-          !(e.target as Element).closest('.menu-toggle-btn') &&
-          !(e.target as Element).classList.contains('mobile-dropdown-toggle')) {
-        setMobileMenuOpen(false);
-      }
-    };
-    
-    // Prevent body scrolling when mobile menu is open
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    window.addEventListener('scroll', handleScroll);
-    document.addEventListener('click', handleClickOutside);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('click', handleClickOutside);
-      document.body.style.overflow = '';
-    };
-  }, [mobileMenuOpen]);
-
   return (
     <nav 
       className={`w-full fixed top-0 z-50 transition-all duration-300 font-roboto ${
-        isScrolled 
+        mobileMenu.isScrolled 
           ? 'glass-nav-dark shadow-lg' 
           : 'glass-nav'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
         {/* Logo - changes based on scroll state */}
-        <a href="#" className="flex items-center gap-2" title="Gypcey Home">
+        <Link href="/" className="flex items-center gap-2" title="Gypcey Home">
           <Image 
-            src={isScrolled ? "/images/Full Logo 1.png" : "/images/Full Logo 2.png"} 
+            src={mobileMenu.isScrolled ? "/images/Full Logo 1.png" : "/images/Full Logo 2.png"} 
             alt="Gypcey Logo" 
             width={140} 
             height={40} 
             priority 
           />
-        </a>
+        </Link>
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {navigationLinks.map((link: NavItem) => (
             <div key={link.name} className="relative group">
               <a
                 href={link.href}
                 className={`text-xs hover:text-blue-400 transition-colors px-2 py-1 ${
-                  isScrolled ? 'text-white' : 'text-gray-900 font-medium'
+                  mobileMenu.isScrolled ? 'text-white' : 'text-gray-900 font-medium'
                 } flex items-center`}
               >
                 {link.name}
@@ -163,8 +111,8 @@ export default function Navbar() {
               )}
             </div>
           ))}
-          <a href="#" className={`flex items-center gap-2 text-xs ${isScrolled ? 'text-white' : 'text-gray-900'}`} title="View Bucket List">
-            <div className={`${isScrolled ? 'bg-blue-600' : 'bg-blue-500'} p-1 rounded flex items-center justify-center`}>
+          <Link href="#" className={`flex items-center gap-2 text-xs ${mobileMenu.isScrolled ? 'text-white' : 'text-gray-900'}`} title="View Bucket List">
+            <div className={`${mobileMenu.isScrolled ? 'bg-blue-600' : 'bg-blue-500'} p-1 rounded flex items-center justify-center`}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
                 <rect width="18" height="18" x="3" y="3" rx="2" />
                 <path d="M3 9h18" />
@@ -172,9 +120,9 @@ export default function Navbar() {
               </svg>
             </div>
             Bucket List
-          </a>
-          <a href="#" className={`flex items-center gap-2 text-xs ${isScrolled ? 'text-white' : 'text-gray-900'}`} title="Go to Shop">
-            <div className={`${isScrolled ? 'bg-orange-600' : 'bg-orange-500'} p-1 rounded flex items-center justify-center`}>
+          </Link>
+          <Link href="#" className={`flex items-center gap-2 text-xs ${mobileMenu.isScrolled ? 'text-white' : 'text-gray-900'}`} title="Go to Shop">
+            <div className={`${mobileMenu.isScrolled ? 'bg-orange-600' : 'bg-orange-500'} p-1 rounded flex items-center justify-center`}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
                 <circle cx="8" cy="21" r="1" />
                 <circle cx="19" cy="21" r="1" />
@@ -182,7 +130,7 @@ export default function Navbar() {
               </svg>
             </div>
             Shop
-          </a>
+          </Link>
         </div>
         {/* Mobile Nav Toggle */}
         <div className="md:hidden flex items-center gap-3">
@@ -194,48 +142,37 @@ export default function Navbar() {
               width={24} 
               height={24}
               className={`transition-all duration-300 ${
-                isScrolled ? 'filter invert' : ''
+                mobileMenu.isScrolled ? 'filter invert' : ''
               }`}
             />
           </div>
-          {/* Burger Menu Button - This transforms to X when menu is open */}
-          <button 
-            className={`focus:outline-none transition-all p-2 menu-toggle-btn z-[60] rounded-full ${
-              mobileMenuOpen 
-                ? 'bg-white/20 hover:bg-white/30 text-white' 
-                : isScrolled 
-                  ? 'text-white hover:bg-white/10' 
-                  : 'text-gray-800 hover:bg-gray-100/50'
-            }`}
-            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            title={mobileMenuOpen ? "Close Menu" : "Open Menu"}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <div className="w-6 h-5 flex flex-col justify-between relative">
-                <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
-                  isScrolled ? 'bg-white' : 'bg-gray-800'
-                }`}></span>
-                <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
-                  isScrolled ? 'bg-white' : 'bg-gray-800'
-                }`}></span>
-                <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
-                  isScrolled ? 'bg-white' : 'bg-gray-800'
-                }`}></span>
-              </div>
-            )}
-          </button>
+          {/* Burger Menu Button */}
+          <IconButton
+            icon={
+              mobileMenu.isOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <div className="w-6 h-5 flex flex-col justify-between relative">
+                  <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full bg-current`}></span>
+                  <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full bg-current`}></span>
+                  <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full bg-current`}></span>
+                </div>
+              )
+            }
+            variant={mobileMenu.isOpen ? "white" : mobileMenu.isScrolled ? "transparent" : "transparent"}
+            ariaLabel={mobileMenu.isOpen ? "Close navigation menu" : "Open navigation menu"}
+            className="menu-toggle-btn z-[60]"
+            onClick={mobileMenu.toggle}
+          />
         </div>
       </div>
       
       {/* Full Screen Mobile Menu - Exactly as in the reference image */}
       <div 
         className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ${
-          mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+          mobileMenu.isOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
         }`}
       >
         {/* Full-screen blue background */}
@@ -268,7 +205,7 @@ export default function Navbar() {
                 e.stopPropagation(); // Prevent event bubbling
                 // Only close if it's a link to another page (not a hash link)
                 if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  setMobileMenuOpen(false);
+                  mobileMenu.close();
                 }
               }}
             >
@@ -295,21 +232,21 @@ export default function Navbar() {
                 activeMobileDropdown === "Experience" ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
               }`}>
                 <div className="bg-gray-100 mx-10 rounded-lg py-2 px-4 text-left">
-                  {experienceDropdown.map((item, index) => (
-                    <a
+                  {experienceDropdownItems.map((item, index) => (
+                    <DropdownItem
                       key={`experience-${index}`}
                       href={item.href}
-                      className="block py-3 text-gray-700 text-base hover:text-blue-600 transition-colors"
+                      className="py-3"
                       onClick={(e) => {
                         e.stopPropagation(); // Prevent event bubbling
                         // Only close if it's a link to another page (not a hash link)
                         if (item.href && item.href !== '#') {
-                          setMobileMenuOpen(false);
+                          mobileMenu.close();
                         }
                       }}
                     >
                       {item.name}
-                    </a>
+                    </DropdownItem>
                   ))}
                 </div>
               </div>
