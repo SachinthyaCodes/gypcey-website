@@ -65,10 +65,10 @@ export default function Navbar() {
 
   return (
     <nav 
-      className={`w-full border-b fixed top-0 z-50 transition-all duration-300 font-roboto ${
+      className={`w-full fixed top-0 z-50 transition-all duration-300 font-roboto ${
         isScrolled 
-          ? 'border-gray-800 bg-gray-900 shadow-lg' 
-          : 'border-gray-200 bg-white'
+          ? 'glass-nav-dark shadow-lg' 
+          : 'glass-nav'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
@@ -89,7 +89,7 @@ export default function Navbar() {
               <a
                 href={link.href}
                 className={`text-xs hover:text-blue-400 transition-colors px-2 py-1 ${
-                  isScrolled ? 'text-white' : 'text-gray-800'
+                  isScrolled ? 'text-white' : 'text-gray-900 font-medium'
                 } flex items-center`}
               >
                 {link.name}
@@ -100,7 +100,7 @@ export default function Navbar() {
               
               {/* Dropdown menu */}
               {link.dropdown && link.items && link.items.length > 0 && (
-                <div className="absolute left-0 mt-1 w-64 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
+                <div className="absolute left-0 mt-1 w-64 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden glass-dropdown">
                   {/* Experience Dropdown */}
                   {link.name === "Experience" && (
                     <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-2">
