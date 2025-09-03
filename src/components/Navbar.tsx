@@ -105,16 +105,16 @@ export default function Navbar() {
                   {link.name === "Experience" && (
                     <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-2">
                       <div className="col-span-1">
-                        <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Adventures</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Wellness</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Stay & Work</a>
+                        <a href="#" className="text-sm text-gray-600 font-medium block mb-2 hover:text-blue-500 transition-colors">Adventures</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Wellness</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Stay & Work</a>
                       </div>
                       <div className="col-span-1">
-                        <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Surf Camp</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Wild Safari</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Lagoon Safari</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Diving</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Fishing Tours</a>
+                        <a href="#" className="text-sm text-gray-600 font-medium block mb-2 hover:text-blue-500 transition-colors">Surf Camp</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Wild Safari</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Lagoon Safari</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Diving</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Fishing Tours</a>
                       </div>
                     </div>
                   )}
@@ -123,12 +123,16 @@ export default function Navbar() {
                   {link.name === "Essentials" && (
                     <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-2">
                       <div className="col-span-1">
-                        <a href="#" className="text-sm text-blue-500 font-medium block mb-2 hover:text-blue-600">Travel Guides</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">Travel Health</a>
-                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-600">BLOG</a>
+                        <a href="#" className="text-sm text-gray-600 font-medium block mb-2 hover:text-blue-500 transition-colors">Travel Guides</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Travel Health</a>
+                        <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">BLOG</a>
                       </div>
                       <div className="col-span-1">
-                        <p className="text-sm text-gray-700 leading-snug">Sun-drenched shores. <br/>Rolling waves. Pure island <br/>energy on the East Coast</p>
+                        <a href="#" className="text-sm text-gray-700 leading-snug block hover:text-blue-500 transition-colors">
+                          Sun-drenched shores. <br/>
+                          Rolling waves. Pure island <br/>
+                          energy on the East Coast
+                        </a>
                       </div>
                     </div>
                   )}
