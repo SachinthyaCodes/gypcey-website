@@ -60,8 +60,11 @@ export default function Navbar() {
         setActiveDropdown(null);
       }
       
-      // Close mobile menu when clicking outside
-      if (mobileMenuOpen && !(e.target as Element).closest('.mobile-menu') && !(e.target as Element).closest('.menu-toggle-btn')) {
+      // Close mobile menu when clicking outside of menu or burger button
+      if (mobileMenuOpen && 
+          !(e.target as Element).closest('.mobile-menu-bg') && 
+          !(e.target as Element).closest('.menu-toggle-btn') &&
+          !(e.target as Element).classList.contains('mobile-dropdown-toggle')) {
         setMobileMenuOpen(false);
       }
     };
@@ -181,124 +184,222 @@ export default function Navbar() {
               }`}
             />
           </div>
-          {/* Burger Menu Icon */}
+          {/* Burger Menu Button - This transforms to X when menu is open */}
           <button 
-            className={`focus:outline-none transition-colors p-2 menu-toggle-btn ${
-              isScrolled ? 'text-white' : 'text-gray-800'
+            className={`focus:outline-none transition-all p-2 menu-toggle-btn z-[60] rounded-md ${
+              isScrolled || mobileMenuOpen 
+                ? 'text-white hover:bg-white/10' 
+                : 'text-gray-800 hover:bg-gray-100/50'
             }`}
-            aria-label="Open navigation menu"
-            title="Open Menu"
+            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            title={mobileMenuOpen ? "Close Menu" : "Open Menu"}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <div className="w-6 h-5 flex flex-col justify-between relative">
               <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
-                isScrolled ? 'bg-white' : 'bg-gray-800'
+                isScrolled || mobileMenuOpen ? 'bg-white' : 'bg-gray-800'
               } ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
               <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
-                isScrolled ? 'bg-white' : 'bg-gray-800'
+                isScrolled || mobileMenuOpen ? 'bg-white' : 'bg-gray-800'
               } ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
               <span className={`block w-full h-0.5 transition-all duration-300 ease-in-out rounded-full ${
-                isScrolled ? 'bg-white' : 'bg-gray-800'
+                isScrolled || mobileMenuOpen ? 'bg-white' : 'bg-gray-800'
               } ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
             </div>
           </button>
         </div>
       </div>
       
-      {/* Mobile Nav Drawer */}
-      <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ease-in-out ${
-        mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-      }`}>
-        {/* Backdrop */}
-        <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)}></div>
-        
-        {/* Mobile Menu */}
-        <div className={`absolute top-0 right-0 h-full w-4/5 max-w-sm glass-nav-dark shadow-xl transform transition-transform duration-300 ease-in-out mobile-menu ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}>
-          {/* Close Button */}
-          <div className="flex justify-end p-4">
-            <button 
-              className="text-white focus:outline-none"
-              aria-label="Close menu"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-          
-          {/* Mobile Logo */}
-          <div className="flex justify-center mb-8 px-4">
-            <Image 
-              src="/images/Full Logo 1.png" 
-              alt="Gypcey Logo" 
-              width={140} 
-              height={40} 
-              priority 
-            />
-          </div>
-          
-          {/* Mobile Navigation Links */}
-          <div className="px-4 py-2">
-            {navLinks.map((link) => (
-              <div key={link.name} className="mb-4">
-                <div className="flex items-center justify-between">
-                  <a
-                    href={link.dropdown && link.items && link.items.length > 0 ? "#" : link.href}
-                    className="text-white text-base font-medium py-2"
-                    onClick={(e) => {
-                      if (link.dropdown && link.items && link.items.length > 0) {
-                        e.preventDefault();
-                        toggleMobileDropdown(link.name);
-                      }
-                    }}
-                  >
-                    {link.name}
-                  </a>
-                  {link.dropdown && link.items && link.items.length > 0 && (
-                    <button
-                      className="text-white focus:outline-none p-2"
-                      onClick={() => toggleMobileDropdown(link.name)}
-                    >
-                      <span className={`transition-transform duration-300 inline-block ${
-                        activeMobileDropdown === link.name ? 'rotate-180' : ''
-                      }`}>&#9662;</span>
-                    </button>
-                  )}
-                </div>
-                
-                {/* Mobile Dropdown */}
-                {link.dropdown && link.items && link.items.length > 0 && (
-                  <div className={`mt-2 ml-4 overflow-hidden transition-all duration-300 ${
-                    activeMobileDropdown === link.name ? 'max-h-96' : 'max-h-0'
-                  }`}>
-                    {link.items.map((item, index) => (
-                      <a
-                        key={`${item.name}-${index}`}
-                        href={item.href}
-                        className={`block py-2 text-white text-sm opacity-80 hover:opacity-100 ${
-                          item.description ? 'text-sm leading-snug mt-2' : ''
-                        }`}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            
-            {/* Additional Mobile Links */}
-            <div className="mt-6 flex flex-col gap-4">
-              <a href="#" className="flex items-center gap-2 text-blue-400 text-sm" title="View Bucket List">
-                <Image src="/bucket-list.svg" alt="Bucket List" width={24} height={24} /> Bucket List
-              </a>
-              <a href="#" className="flex items-center gap-2 text-orange-400 text-sm" title="Go to Shop">
-                <Image src="/shop.svg" alt="Shop" width={24} height={24} /> Shop
-              </a>
+      {/* Full Screen Mobile Menu - Exactly as in the reference image */}
+      <div 
+        className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ${
+          mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+        }`}
+      >
+        {/* Full-screen blue background */}
+        <div 
+          className="absolute inset-0 mobile-menu-bg overflow-auto"
+          onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside menu
+        >
+          {/* Logo and title at top */}
+          <div className="pt-16 pb-8 flex flex-col items-center">
+            <div className="mb-2">
+              <Image
+                src="/images/Full Logo 1.png"
+                alt="Gypcey Logo"
+                width={200}
+                height={60}
+                priority
+                className="w-auto h-auto"
+              />
             </div>
+            <p className="text-white text-sm uppercase tracking-wider">SRI LANKAN YOUTHFUL ESCAPES</p>
+          </div>
+          
+          {/* Menu Items */}
+          <div className="flex flex-col items-center pt-10 space-y-8 text-center">
+            {/* Trips - Simple Link */}
+            <a 
+              href="#" 
+              className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent event bubbling
+                // Only close if it's a link to another page (not a hash link)
+                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
+                  setMobileMenuOpen(false);
+                }
+              }}
+            >
+              Trips
+            </a>
+            
+            {/* Experience - With Dropdown */}
+            <div className="w-full">
+              <div 
+                className="flex items-center justify-center cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleMobileDropdown("Experience");
+                }}
+              >
+                <span className="text-white text-xl font-medium">Experience</span>
+                <span className="text-white ml-2 text-lg">
+                  {activeMobileDropdown === "Experience" ? "▲" : "▼"}
+                </span>
+              </div>
+              
+              {/* Experience Dropdown Content */}
+              <div className={`mt-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                activeMobileDropdown === "Experience" ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              }`}>
+                <div className="bg-white/10 mx-10 rounded-lg py-2 px-4">
+                  {experienceDropdown.map((item, index) => (
+                    <a
+                      key={`experience-${index}`}
+                      href={item.href}
+                      className="block py-3 text-white text-base hover:opacity-80 transition-opacity"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent event bubbling
+                        // Only close if it's a link to another page (not a hash link)
+                        if (item.href && item.href !== '#') {
+                          setMobileMenuOpen(false);
+                        }
+                      }}
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Essentials - With Dropdown */}
+            <div className="w-full">
+              <div 
+                className="flex items-center justify-center cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleMobileDropdown("Essentials");
+                }}
+              >
+                <span className="text-white text-xl font-medium">Essentials</span>
+                <span className="text-white ml-2 text-lg">
+                  {activeMobileDropdown === "Essentials" ? "▲" : "▼"}
+                </span>
+              </div>
+              
+              {/* Essentials Dropdown Content */}
+              <div className={`mt-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                activeMobileDropdown === "Essentials" ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              }`}>
+                <div className="bg-white/10 mx-10 rounded-lg py-2 px-4">
+                  <a href="#" className="block py-3 text-white text-base hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                    Travel Guides
+                  </a>
+                  <a href="#" className="block py-3 text-white text-base hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                    Travel Health
+                  </a>
+                  <a href="#" className="block py-3 text-white text-base hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                    BLOG
+                  </a>
+                  <div className="mt-4 border-t border-white/20 pt-3">
+                    <a href="#" className="block py-2 text-white text-base leading-snug hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                      Sun-drenched shores
+                    </a>
+                    <a href="#" className="block py-2 text-white text-base leading-snug hover:opacity-80 transition-opacity" onClick={(e) => e.stopPropagation()}>
+                      Rolling waves. Pure island energy on the East Coast
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Regular Links */}
+            <a 
+              href="#" 
+              className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
+                  setMobileMenuOpen(false);
+                }
+              }}
+            >
+              About Gypcey
+            </a>
+            
+            <a 
+              href="#" 
+              className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
+                  setMobileMenuOpen(false);
+                }
+              }}
+            >
+              Community
+            </a>
+            
+            <a 
+              href="#" 
+              className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
+                  setMobileMenuOpen(false);
+                }
+              }}
+            >
+              Contact Us
+            </a>
+            
+            {/* Additional Links */}
+            <a 
+              href="#" 
+              className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
+                  setMobileMenuOpen(false);
+                }
+              }}
+            >
+              Bucket List
+            </a>
+            
+            <a 
+              href="#" 
+              className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
+                  setMobileMenuOpen(false);
+                }
+              }}
+            >
+              Shop
+            </a>
           </div>
         </div>
       </div>

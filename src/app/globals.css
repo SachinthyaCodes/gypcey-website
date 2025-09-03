@@ -71,13 +71,35 @@ body {
   overscroll-behavior: contain;
 }
 
+/* Mobile menu background color */
+.mobile-menu-bg {
+  background-color: #0078c1; /* Exact blue color from the image */
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 40px; /* Extra padding at the bottom for better scrolling */
+}
+
+.dropdown-arrow {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
 /* For mobile navigation transitions */
 .max-h-0 {
   max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
 }
 
 .max-h-96 {
   max-height: 24rem;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
 }
 
 /* Custom vignette effect with gradual blur reduction */
