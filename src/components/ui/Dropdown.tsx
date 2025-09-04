@@ -84,7 +84,9 @@ export const DropdownContainer: React.FC<DropdownContainerProps> = ({
   );
 };
 
-export default {
+const DropdownComponents = {
   Item: DropdownItem,
   Container: DropdownContainer
 };
+
+export default DropdownComponents;

@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { FaWater, FaLeaf, FaLandmark, FaHiking } from "react-icons/fa";
 
 export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [activeTab, setActiveTab] = useState('seasons');
   const [currentCarouselSlide, setCurrentCarouselSlide] = useState(0);
   const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
@@ -21,7 +20,7 @@ export default function Home() {
       image: "/images/connecting_airports.png",
       stars: 4,
       rating: "4.8",
-      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text"
+      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry&apos;s standard dummy text"
     },
     {
       name: "Michael Roberts",
@@ -29,7 +28,7 @@ export default function Home() {
       image: "/images/adventure.jpg",
       stars: 5,
       rating: "5.0",
-      text: "\"MO is the best. Besides the many and superb products, the service was exceptional. Would definitely recommend to all my friends.\""
+      text: "&quot;MO is the best. Besides the many and superb products, the service was exceptional. Would definitely recommend to all my friends.&quot;"
     },
     {
       name: "Sophia Chen",
@@ -37,7 +36,7 @@ export default function Home() {
       image: "/images/culture.jpg",
       stars: 4,
       rating: "4.5",
-      text: "\"The Sigiriya tour was absolutely breathtaking. Our guide was knowledgeable and the views were spectacular. Highly recommended!\""
+      text: "&quot;The Sigiriya tour was absolutely breathtaking. Our guide was knowledgeable and the views were spectacular. Highly recommended!&quot;"
     },
     {
       name: "David Kim",
@@ -45,7 +44,7 @@ export default function Home() {
       image: "/images/wildlife.jpg",
       stars: 5,
       rating: "5.0",
-      text: "\"Perfect escape from winter! The beaches were pristine and the local culture experience was authentic. Can't wait to return.\""
+      text: "&quot;Perfect escape from winter! The beaches were pristine and the local culture experience was authentic. Can&apos;t wait to return.&quot;"
     }
   ];
   
@@ -56,7 +55,7 @@ export default function Home() {
     }, 5000);
     
     return () => clearInterval(reviewInterval);
-  }, []);
+  }, [reviews.length]);
   
   // Handle mouse wheel and touch swipe events for pricing cards
   useEffect(() => {
@@ -249,7 +248,7 @@ export default function Home() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+      setCurrentHeroSlide((prev) => (prev + 1) % heroImages.length);
     }, 4000); // Change slide every 4 seconds
 
     return () => clearInterval(interval);
@@ -540,7 +539,7 @@ export default function Home() {
             </h3>
             
             <p className="text-sm text-gray-700 text-center mb-6 leading-relaxed font-roboto">
-              Dreaming of the perfect escape? Make it surf, safari, culture, or a bit of everything—tell us what moves you, and we'll craft a journey that's uniquely yours
+              Dreaming of the perfect escape? Make it surf, safari, culture, or a bit of everything—tell us what moves you, and we&apos;ll craft a journey that&apos;s uniquely yours
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 w-full">
@@ -813,7 +812,7 @@ export default function Home() {
                       <span className="ml-1 text-sm">4.8</span>
                     </div>
                     <p className="text-sm">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry&apos;s standard dummy text
                     </p>
                   </div>
                 )}
@@ -832,7 +831,7 @@ export default function Home() {
                       <span className="ml-1 text-sm">5.0</span>
                     </div>
                     <p className="text-sm">
-                      "MO is the best. Besides the many and superb products, the service was exceptional. Would definitely recommend to all my friends."
+                      &quot;MO is the best. Besides the many and superb products, the service was exceptional. Would definitely recommend to all my friends.&quot;
                     </p>
                   </div>
                 )}
@@ -852,7 +851,7 @@ export default function Home() {
                       <span className="ml-1 text-sm">4.5</span>
                     </div>
                     <p className="text-sm">
-                      "The Sigiriya tour was absolutely breathtaking. Our guide was knowledgeable and the views were spectacular. Highly recommended!"
+                      &quot;The Sigiriya tour was absolutely breathtaking. Our guide was knowledgeable and the views were spectacular. Highly recommended!&quot;
                     </p>
                   </div>
                 )}
@@ -871,7 +870,7 @@ export default function Home() {
                       <span className="ml-1 text-sm">5.0</span>
                     </div>
                     <p className="text-sm">
-                      "Perfect escape from winter! The beaches were pristine and the local culture experience was authentic. Can't wait to return."
+                      &quot;Perfect escape from winter! The beaches were pristine and the local culture experience was authentic. Can&apos;t wait to return.&quot;
                     </p>
                   </div>
                 )}
@@ -926,7 +925,7 @@ export default function Home() {
                   Escape <span className="font-bold text-orange-accent">Winter</span> in Style!
                 </h2>
                 <p className="text-white/80 mb-8">
-                  "MO is the best. Besides the many and Superb Products, the service..."
+                  &quot;MO is the best. Besides the many and Superb Products, the service...&quot;
                 </p>
                 <div className="flex items-center space-x-4">
                   <button className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center" aria-label="Play video">
@@ -1356,7 +1355,7 @@ export default function Home() {
                   
                   <h3 className="text-xl font-semibold mb-4">Galle Fort</h3>
                   <p className="text-base text-gray-600 leading-relaxed mb-8">
-                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
+                    Lorem ipsum is simply dummy text of the printing and typesetting industry. Lorem ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.
                   </p>
                 </div>
                 

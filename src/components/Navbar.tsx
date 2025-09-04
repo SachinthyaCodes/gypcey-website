@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { navigationLinks, experienceDropdownItems, essentialsDropdownItems } from "@/config/navigation";
+import { navigationLinks, experienceDropdownItems } from "@/config/navigation";
 import useScrollAndClickOutside from "@/hooks/useScrollAndClickOutside";
 import IconButton from "@/components/ui/IconButton";
-import { DropdownContainer, DropdownItem } from "@/components/ui/Dropdown";
-import { NavItem, DropdownItem as DropdownItemType } from "@/types";
+import { DropdownItem } from "@/components/ui/Dropdown";
+import { NavItem } from "@/types";
 
 /**
  * Main navigation bar component for the website
