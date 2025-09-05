@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { navigationLinks, experienceDropdownItems } from "@/config/navigation";
 import useScrollAndClickOutside from "@/hooks/useScrollAndClickOutside";
 import IconButton from "@/components/ui/IconButton";
@@ -22,11 +23,25 @@ export default function Navbar() {
   });
   
   const [activeMobileDropdown, setActiveMobileDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
 
-  // Handle mobile dropdown toggle
-  const toggleMobileDropdown = (linkName: string) => {
-    setActiveMobileDropdown(activeMobileDropdown === linkName ? null : linkName);
-  };
+  // Handle mobile dropdown toggle (memoized to prevent re-renders)
+  const toggleMobileDropdown = useCallback((linkName: string) => {
+    setActiveMobileDropdown(prev => prev === linkName ? null : linkName);
+  }, []);
+
+  // Centralized mobile link click handler
+  const handleMobileLinkClick = useCallback((e: React.MouseEvent, href?: string) => {
+    e.stopPropagation();
+    if (href && href !== '#') {
+      mobileMenu.close?.();
+    }
+  }, [mobileMenu]);
+
+  // Close dropdowns on route change (but not the main menu automatically)
+  useEffect(() => {
+    setActiveMobileDropdown(null);
+  }, [pathname]);
 
   return (
     <nav 
@@ -92,13 +107,7 @@ export default function Navbar() {
                         <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">Travel Health</a>
                         <a href="#" className="text-sm text-gray-600 block mb-2 hover:text-blue-500 transition-colors">BLOG</a>
                       </div>
-                      <div className="col-span-1">
-                        <a href="#" className="text-sm text-gray-700 leading-snug block hover:text-blue-500 transition-colors">
-                          Sun-drenched shores. <br/>
-                          Rolling waves. Pure island <br/>
-                          energy on the East Coast
-                        </a>
-                      </div>
+  
                     </div>
                   )}
                 </div>
@@ -163,7 +172,7 @@ export default function Navbar() {
         </div>
       </div>
       
-      {/* Full Screen Mobile Menu - Exactly as in the reference image */}
+      {/* Full Screen Mobile Menu */}
       <div 
         className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ${
           mobileMenu.isOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
@@ -172,7 +181,7 @@ export default function Navbar() {
         {/* Full-screen blue background */}
         <div 
           className="absolute inset-0 mobile-menu-bg overflow-auto"
-          onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside menu
+          onClick={(e) => e.stopPropagation()} 
         >
           {/* Logo and title at top */}
           <div className="pt-16 pb-8 flex flex-col items-center">
@@ -191,17 +200,10 @@ export default function Navbar() {
           
           {/* Menu Items */}
           <div className="flex flex-col items-center pt-10 space-y-8 text-center">
-            {/* Trips - Simple Link */}
             <a 
               href="#" 
               className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent event bubbling
-                // Only close if it's a link to another page (not a hash link)
-                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  mobileMenu.close();
-                }
-              }}
+              onClick={(e) => handleMobileLinkClick(e, '#')}
             >
               Trips
             </a>
@@ -231,13 +233,7 @@ export default function Navbar() {
                       key={`experience-${index}`}
                       href={item.href}
                       className="py-3"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent event bubbling
-                        // Only close if it's a link to another page (not a hash link)
-                        if (item.href && item.href !== '#') {
-                          mobileMenu.close();
-                        }
-                      }}
+                      onClick={(e) => handleMobileLinkClick(e, item.href)}
                     >
                       {item.name}
                     </DropdownItem>
@@ -291,12 +287,7 @@ export default function Navbar() {
             <a 
               href="#" 
               className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  mobileMenu.close();
-                }
-              }}
+              onClick={(e) => handleMobileLinkClick(e, '#')}
             >
               About Gypcey
             </a>
@@ -304,12 +295,7 @@ export default function Navbar() {
             <a 
               href="#" 
               className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  mobileMenu.close();
-                }
-              }}
+              onClick={(e) => handleMobileLinkClick(e, '#')}
             >
               Community
             </a>
@@ -317,12 +303,7 @@ export default function Navbar() {
             <a 
               href="#" 
               className="text-white text-xl font-medium hover:opacity-80 transition-opacity"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (e.currentTarget.getAttribute('href') && e.currentTarget.getAttribute('href') !== '#') {
-                  mobileMenu.close();
-                }
-              }}
+              onClick={(e) => handleMobileLinkClick(e, '#')}
             >
               Contact Us
             </a>

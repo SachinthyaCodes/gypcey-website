@@ -30,7 +30,6 @@ export default function Footer() {
           priority
           onError={(e) => {
             // If image fails to load, we already have the dark background as fallback
-            console.log("Footer image not found, using solid background instead");
             e.currentTarget.style.display = 'none';
           }}
         />
@@ -51,7 +50,7 @@ export default function Footer() {
                 {footerContent.aboutSite}
               </p>
               <NewsletterInput
-                onSubmit={(email) => console.log('Newsletter subscription:', email)}
+                onSubmit={(email) => {}}
               />
             </div>
 
@@ -114,7 +113,7 @@ export default function Footer() {
             </p>
             <NewsletterInput
               className="w-full mx-auto mb-1" 
-              onSubmit={(email) => console.log('Mobile newsletter subscription:', email)}
+              onSubmit={(email) => {}}
             />
           </div>
 
